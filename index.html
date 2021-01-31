@@ -150,6 +150,13 @@
         var hold = 1;
 
         canvas.click(function(e) {
+            if (voice.paused) {
+                    voice.play();
+                    $('.musicPlay>p>#pic').attr('class', 'glyphicon glyphicon-volume-up');
+                } else {
+                    voice.pause();
+                    $('.musicPlay>p>#pic').attr('class', 'glyphicon glyphicon-volume-off');
+                }
             var offset = canvas.offset(), x, y;
             x = e.pageX - offset.left;
             y = e.pageY - offset.top;
