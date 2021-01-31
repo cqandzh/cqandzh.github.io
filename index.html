@@ -3,6 +3,8 @@
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>CQandZH的纪念网站
         </title>
+        <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         
         <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
         <script type="text/javascript" src="./Love_files/jquery.min.js"></script>
@@ -14,16 +16,17 @@
         <script type="text/javascript" src="./Love_files/jscex-async-powerpack.min.js"></script>
         <script type="text/javascript" src="./Love_files/functions.js" charset="utf-8"></script>
         <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
-        <script type="text/javascript" src="./Love_files/jweixin-1.0.0.js" charset="utf-8"></script>
+
     </head>
     <body>
-        <div class="musicPlay" style="float: right;">
-            <audio id="voice" autoplay="true" style="display:none; height: 0" id="bg-music" preload="auto" src="Love_files/love.mp3" loop="loop"></audio>
-            <p ><img  src="http://upload-images.jianshu.io/upload_images/6171922-4d23a92a9c256d0d.gif?imageMogr2/auto-orient/strip"><span>宝贝的钢琴曲</span></p>    
-        </div>
+    
         <div id="main">
             <div id="error">亲，您使用的浏览器无法支持即将显示的内容，请换成谷歌(<a href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a>)或者火狐(<a href="http://firefox.com.cn/download/">Firefox</a>)浏览器哟~</div>
             <div id="wrap">
+                <div class="musicPlay" style="float:right">
+                    <audio id="voice" src="Love_files/love.mp3" autoplay="true"></audio>
+                    <p><span class="glyphicon glyphicon-volume-up" aria-hidden="true" id="pic"></span><span >播放宝贝的音乐</span></p>
+                </div>
                <div id="text">
                     <div id="code">                 
                     <span class="say">这是一封道歉信，</span><br>
@@ -31,7 +34,7 @@
                     <span class="say">本来说好的，今天陪宝贝一起学习，我又没能兑现。</span><br>
                      <span class="say">让我的宝贝不开心了。</span><br>
                     <br>
-                        
+                    
                         <span class="say">在这里，</span><br>
                         <span class="say">我很认真很认真的要做到，</span><br>
                         <span class="say">一定一定早睡早起，和宝贝步调一致。</span><br>
@@ -54,23 +57,11 @@
 
 
         </div>
-        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-        var audio = document.getElementById('bg-music');    
-            // document.addEventListener('DOMContentLoaded', function () {  
-            //       function audioAutoPlay() {      
-                         
-            //                    audio.play();      
-            //                      document.addEventListener("WeixinJSBridgeReady", function () {        
-            //                              audio.play();    
-            //                                 }, false);  
-            //                               }  
-            //                                 audioAutoPlay();});
-            //                                 $(document).ready(function() {
-
+    
+        <script>
+        $(document).ready(function() {
             var voice = document.getElementById('voice');
             //调用 <audio> 元素提供的方法 play()
-            voice.play();
             //判斷 WeixinJSBridge 是否存在
             if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
                 voice.play();
@@ -89,34 +80,18 @@
                     });
                 }
             }
-
-            //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
-            var voiceStatu = true;
-            //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
-            document.addEventListener("touchstart",function(e){
-                if(voiceStatu){
-                    voice.play();
-                    voiceStatu = false;
-                }
-            }, false);
-
-
             $('.musicPlay').click(function() {
                 // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
                 if (voice.paused) {
                     voice.play();
-                    $('.musicPlay>p>img').attr('src', 'http://upload-images.jianshu.io/upload_images/6171922-4d23a92a9c256d0d.gif?imageMogr2/auto-orient/strip');
+                    $('.musicPlay>p>#pic').attr('class', 'glyphicon glyphicon-volume-up');
                 } else {
                     voice.pause();
-                    $('.musicPlay>p>img').attr('src', 'http://upload-images.jianshu.io/upload_images/6171922-e5206046b43e1efe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240');
+                    $('.musicPlay>p>#pic').attr('class', 'glyphicon glyphicon-volume-off');
                 }
             });
-            
-
-
-
-
-    </script>
+        });
+        </script>
 
     <script>
     (function(){
@@ -175,8 +150,6 @@
         var hold = 1;
 
         canvas.click(function(e) {
-     
-
             var offset = canvas.offset(), x, y;
             x = e.pageX - offset.left;
             y = e.pageY - offset.top;
