@@ -27,7 +27,7 @@
                     <span class="say">本来说好的，今天陪宝贝一起学习，我又没能兑现。</span><br>
                      <span class="say">让我的宝贝不开心了。</span><br>
                     <br>
-                    
+                        
                         <span class="say">在这里，</span><br>
                         <span class="say">我很认真很认真的要做到，</span><br>
                         <span class="say">一定一定早睡早起，和宝贝步调一致。</span><br>
@@ -53,9 +53,10 @@
         </div>
     
     <script>
+        var audio = document.getElementById('bg-music');    
             document.addEventListener('DOMContentLoaded', function () {  
                   function audioAutoPlay() {      
-                        var audio = document.getElementById('bg-music');     
+                         
                                audio.play();      
                                  document.addEventListener("WeixinJSBridgeReady", function () {        
                                          audio.play();    
@@ -66,6 +67,13 @@
                 var audio = document.getElementById('bg-music');     
                             audio.play(); }, 
                             false);
+            audio.addEventListener('progress', function() {
+                audio.play();
+            });
+
+            audio.addEventListener('loadedmetadata', function() {
+                audio.play();
+            });
                         //配置微信信息  
             wx.config ({  
                 debug : false,    // true:调试时候弹窗  
