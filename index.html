@@ -47,11 +47,11 @@
                 </div>
                 <canvas id="canvas" width="1100" height="680"></canvas>
             </div>
-            <audio style="display:none; height: 0" id="bg-music" preload="auto" src="Love_files/love.mp3" loop="loop"></audio>
-
+            <audio id="voice" style="display:none; height: 0" id="bg-music" preload="auto" src="Love_files/love.mp3" loop="loop"></audio>
+            <p><img src="http://upload-images.jianshu.io/upload_images/6171922-4d23a92a9c256d0d.gif?imageMogr2/auto-orient/strip"><span>播放/暫停</span></p>
 
         </div>
-    
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script>
         var audio = document.getElementById('bg-music');    
             document.addEventListener('DOMContentLoaded', function () {  
@@ -63,33 +63,55 @@
                                             }, false);  
                                           }  
                                             audioAutoPlay();});
-            document.addEventListener('touchstart', function(){ 
-                var audio = document.getElementById('bg-music');     
-                            audio.play(); }, 
-                            false);
-            audio.addEventListener('progress', function() {
-                audio.play();
+                                            $(document).ready(function() {
+
+            var voice = document.getElementById('voice');
+            //调用 <audio> 元素提供的方法 play()
+            voice.play();
+            //判斷 WeixinJSBridge 是否存在
+            if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+                voice.play();
+            } else {
+                //監聽客户端抛出事件"WeixinJSBridgeReady"
+                if (document.addEventListener) {
+                    document.addEventListener("WeixinJSBridgeReady", function(){
+                        voice.play();
+                    }, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent("WeixinJSBridgeReady", function(){
+                        voice.play();
+                    });
+                    document.attachEvent("onWeixinJSBridgeReady", function(){
+                        voice.play();
+                    });
+                }
+            }
+
+            //voiceStatu用來記録狀態,使 touchstart 事件只能觸發一次有效,避免與 click 事件衝突
+            var voiceStatu = true;
+            //监听 touchstart 事件进而调用 <audio> 元素提供的 play() 方法播放音频
+            document.addEventListener("touchstart",function(e){
+                if(voiceStatu){
+                    voice.play();
+                    voiceStatu = false;
+                }
+            }, false);
+
+
+            $('.musicPlay').click(function() {
+                // 依據 audio 的 paused 属性返回音频是否已暂停來判斷播放還是暫停音频。
+                if (voice.paused) {
+                    voice.play();
+                    $('.musicPlay>p>img').attr('src', 'http://upload-images.jianshu.io/upload_images/6171922-4d23a92a9c256d0d.gif?imageMogr2/auto-orient/strip');
+                } else {
+                    voice.pause();
+                    $('.musicPlay>p>img').attr('src', 'http://upload-images.jianshu.io/upload_images/6171922-e5206046b43e1efe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240');
+                }
+            });
             });
 
-            audio.addEventListener('loadedmetadata', function() {
-                audio.play();
-            });
-                        //配置微信信息  
-            wx.config ({  
-                debug : false,    // true:调试时候弹窗  
-                appId : '',  // 微信appid  
-                timestamp : '', // 时间戳  
-                nonceStr : '',  // 随机字符串  
-                signature : '', // 签名  
-                jsApiList : []  // 所有要调用的 API 都要加到这个列表中   
-            });  
-            wx.ready (function () {  
-                var audio = document.createElementt('audio');
-                audio.src = 'https://cqandzh.github.io/Love_files/love.mp3';
-                audio.addEventListener('canplay', function() {
-                    audio.play();
-                });
-            }); 
+
+
 
     </script>
 
