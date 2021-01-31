@@ -17,6 +17,10 @@
         <script type="text/javascript" src="./Love_files/jweixin-1.0.0.js" charset="utf-8"></script>
     </head>
     <body>
+        <div class="musicPlay" style="float: right;">
+            <audio id="voice" style="display:none; height: 0" id="bg-music" preload="auto" src="Love_files/love.mp3" loop="loop"></audio>
+            <p ><img  src="http://upload-images.jianshu.io/upload_images/6171922-4d23a92a9c256d0d.gif?imageMogr2/auto-orient/strip"><span>宝贝的钢琴曲</span></p>    
+        </div>
         <div id="main">
             <div id="error">亲，您使用的浏览器无法支持即将显示的内容，请换成谷歌(<a href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a>)或者火狐(<a href="http://firefox.com.cn/download/">Firefox</a>)浏览器哟~</div>
             <div id="wrap">
@@ -47,23 +51,22 @@
                 </div>
                 <canvas id="canvas" width="1100" height="680"></canvas>
             </div>
-            <audio id="voice" style="display:none; height: 0" id="bg-music" preload="auto" src="Love_files/love.mp3" loop="loop"></audio>
-            <p><img src="http://upload-images.jianshu.io/upload_images/6171922-4d23a92a9c256d0d.gif?imageMogr2/auto-orient/strip"><span>播放/暫停</span></p>
+
 
         </div>
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script>
         var audio = document.getElementById('bg-music');    
-            document.addEventListener('DOMContentLoaded', function () {  
-                  function audioAutoPlay() {      
+            // document.addEventListener('DOMContentLoaded', function () {  
+            //       function audioAutoPlay() {      
                          
-                               audio.play();      
-                                 document.addEventListener("WeixinJSBridgeReady", function () {        
-                                         audio.play();    
-                                            }, false);  
-                                          }  
-                                            audioAutoPlay();});
-                                            $(document).ready(function() {
+            //                    audio.play();      
+            //                      document.addEventListener("WeixinJSBridgeReady", function () {        
+            //                              audio.play();    
+            //                                 }, false);  
+            //                               }  
+            //                                 audioAutoPlay();});
+            //                                 $(document).ready(function() {
 
             var voice = document.getElementById('voice');
             //调用 <audio> 元素提供的方法 play()
@@ -108,7 +111,7 @@
                     $('.musicPlay>p>img').attr('src', 'http://upload-images.jianshu.io/upload_images/6171922-e5206046b43e1efe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240');
                 }
             });
-            });
+            
 
 
 
@@ -172,8 +175,7 @@
         var hold = 1;
 
         canvas.click(function(e) {
-            var audio = document.getElementById('bg-music');     
-                               audio.play();      
+     
 
             var offset = canvas.offset(), x, y;
             x = e.pageX - offset.left;
