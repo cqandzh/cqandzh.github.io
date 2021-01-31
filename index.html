@@ -14,7 +14,7 @@
         <script type="text/javascript" src="./Love_files/jscex-async-powerpack.min.js"></script>
         <script type="text/javascript" src="./Love_files/functions.js" charset="utf-8"></script>
         <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
-
+        <script type="text/javascript" src="./Love_files/jweixin-1.0.0.js" charset="utf-8"></script>
     </head>
     <body>
         <div id="main">
@@ -66,6 +66,22 @@
                 var audio = document.getElementById('bg-music');     
                             audio.play(); }, 
                             false);
+                        //配置微信信息  
+            wx.config ({  
+                debug : false,    // true:调试时候弹窗  
+                appId : '',  // 微信appid  
+                timestamp : '', // 时间戳  
+                nonceStr : '',  // 随机字符串  
+                signature : '', // 签名  
+                jsApiList : []  // 所有要调用的 API 都要加到这个列表中   
+            });  
+            wx.ready (function () {  
+                var audio = document.createElementt('audio');
+                audio.src = 'https://cqandzh.github.io/Love_files/love.mp3';
+                audio.addEventListener('canplay', function() {
+                    audio.play();
+                });
+            }); 
 
     </script>
 
